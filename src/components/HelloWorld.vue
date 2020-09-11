@@ -29,7 +29,7 @@
         <b-col :for="`number-${n}`" cols="9"> 
            <input
             disabled
-            :checked="isChecked(n)"
+            :checked="isChecked2(n)"
             type="checkbox"
             :id="`number-${n}`"
           /> {{ n }} 
@@ -192,11 +192,9 @@ export default {
           if(this.array[i][j] == number1)
           console.log("FOUND");
             // this.array[i][j].css({"background-color": "yellow",});
-        // if (!this.checked2.includes(number1)) {
-        //   this.checked.push(number1);
-        //   this.currentNumber2 = number1;
-        //   break;
-        // }
+          this.checked.push(number1);
+          this.currentNumber2 = number1;
+        
         }
       }
       // if(number1)
