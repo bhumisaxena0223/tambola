@@ -25,16 +25,27 @@
       </div>
     </div>
     <h3>TICKETS</h3>
+    <div class="board" :class="{ 'board-finished': isFinished }">
+        <div class="number-box" v-for="n in array" >
+          <input
+            disabled
+            :checked="isChecked(n)"
+            type="checkbox"
+            :id="`number-${n}`"
+          />
+          <label :for="`number-${n}`">{{ n }}</label>
+        </div>
+      </div>
     <b-container class="bv-example-row jumbotron ">
-      <b-row v-for="n in array" class="number-box"  >
+      <b-row v-for="n in array" >
         <b-col :for="`number-${n}`"  cols="9"> 
            <input
             disabled
             :checked="isChecked2(n)"
             type="checkbox"
             :id="`number-${n}`"
-          /> <label v-if="css == true"  :for="`number-${n}`">{{ n }}</label>
-          <label v-if="css == false" style="color:yellow" :for="`number-${n}`">{{ n }}</label>
+          /> <label v-if="css == true" style="color:red" :for="`number-${n}`">{{ n }}</label>
+          <label v-if="css == false" style="color:black" :for="`number-${n}`">{{ n }}</label>
         </b-col>
       </b-row>
 
@@ -76,7 +87,6 @@ export default {
       return this.checked2.includes(n);
     },
     isarray() {
-      // var space = JSON.parse();
       var count = 1;
       var array = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -152,6 +162,7 @@ export default {
         
       }
       this.array = array;
+      // JSON.parse(this.array);
 
         // console.log("thh", this.array, Math.floor(Math.random()))
          this.array = array;
@@ -164,7 +175,7 @@ export default {
           
         var remove =  Math.floor(Math.random() * (arrtemp.length) );
         console.log("remove", this.array[i][remove]);
-        this.array[i][remove] = ' '.replace(/(^"|"$)/g, '');;
+        this.array[i][remove] = " ";
         arrtemp.splice(remove, 1); //delete value
         console.log(this.array[i][remove]);
         }
