@@ -26,7 +26,14 @@
     <h3>TICKETS</h3>
     <b-container class="bv-example-row jumbotron">
       <b-row v-for="n in array" >
-        <b-col :for="`number-${n}`" cols="9"> {{ n }} </b-col>
+        <b-col :for="`number-${n}`" cols="9"> 
+           <input
+            disabled
+            :checked="isChecked(n)"
+            type="checkbox"
+            :id="`number-${n}`"
+          /> {{ n }} 
+        </b-col>
       </b-row>
 
     </b-container>
@@ -61,6 +68,9 @@ export default {
   methods: {
     isChecked: function isChecked(n) {
       return this.checked.includes(n);
+    },
+    isChecked2: function isChecked2(n) {
+      return this.checked2.includes(n);
     },
     isarray() {
       // var space = JSON.parse();
@@ -181,8 +191,15 @@ export default {
         {
           if(this.array[i][j] == number1)
           console.log("FOUND");
+            // this.array[i][j].css({"background-color": "yellow",});
+        // if (!this.checked2.includes(number1)) {
+        //   this.checked.push(number1);
+        //   this.currentNumber2 = number1;
+        //   break;
+        // }
         }
       }
+      // if(number1)
       
     },
   },
