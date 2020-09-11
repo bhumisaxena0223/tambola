@@ -25,17 +25,6 @@
       </div>
     </div>
     <h3>TICKETS</h3>
-    <div class="board" :class="{ 'board-finished': isFinished }">
-        <div class="number-box" v-for="n in array" >
-          <input
-            disabled
-            :checked="isChecked(n)"
-            type="checkbox"
-            :id="`number-${n}`"
-          />
-          <label :for="`number-${n}`">{{ n }}</label>
-        </div>
-      </div>
     <b-container class="bv-example-row jumbotron ">
       <b-row v-for="n in array" >
         <b-col :for="`number-${n}`"  cols="9"> 
