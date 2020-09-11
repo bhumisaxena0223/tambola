@@ -2,12 +2,13 @@
   <div class="hello">
     <div class="tambola">
       <div class="pick">
+         <button @click="isarray" :disabled="isFinished" type="button">
+          Generate Ticket
+        </button>
         <button @click="pickNumber" :disabled="isFinished" type="button">
           PICK
         </button>
-        <button @click="isarray" :disabled="isFinished" type="button">
-          Generate Ticket
-        </button>
+       
 
         <div class="current" v-text="currentNumber"></div>
       </div>
@@ -24,15 +25,16 @@
       </div>
     </div>
     <h3>TICKETS</h3>
-    <b-container class="bv-example-row jumbotron">
-      <b-row v-for="n in array" >
-        <b-col :for="`number-${n}`" cols="9"> 
+    <b-container class="bv-example-row jumbotron ">
+      <b-row v-for="n in array" class="number-box"  >
+        <b-col :for="`number-${n}`"  cols="9"> 
            <input
             disabled
             :checked="isChecked2(n)"
             type="checkbox"
             :id="`number-${n}`"
-          /> {{ n }} 
+          /> <label v-if="css == true"  :for="`number-${n}`">{{ n }}</label>
+          <label v-if="css == false" style="color:yellow" :for="`number-${n}`">{{ n }}</label>
         </b-col>
       </b-row>
 
@@ -56,7 +58,8 @@ export default {
       currentNumber: 0,
       _drawNumbers: [],
       checked2: [],
-      currentNumber2: 0
+      currentNumber2: 0,
+      css: false
     };
   },
   computed: {
@@ -189,17 +192,24 @@ export default {
       for(var i = 0; i<3;i++){
         for(var j= 0; j< 9; j++)
         {
-          if(this.array[i][j] == number1)
+          if(this.array[i][j] == number1) 
+          {
           console.log("FOUND");
-            // this.array[i][j].css({"background-color": "yellow",});
-          this.checked.push(number1);
-          this.currentNumber2 = number1;
+            this.css = false;
+            this.checked.push(number1);
+          this.currentNumber = number1;
+         this.style();
+          }
         
         }
       }
       // if(number1)
       
     },
+    style(){
+      console.log("fdj")
+      this.css = true;
+    }
   },
 };
 </script>
