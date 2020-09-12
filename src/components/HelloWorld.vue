@@ -167,11 +167,6 @@ export default {
         
       }
       this.array = array;
-      // JSON.parse(this.array);
-
-        // console.log("thh", this.array, Math.floor(Math.random()))
-        //  this.array = array;
-        //  this.array.push(array);
       }
       for(var i = 0; i < 3; i++)
       {
