@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <b-container class="hello">
     <div class="tambola">
       <div class="pick">
          <button @click="isarray" :disabled="isFinished" type="button">
@@ -25,21 +25,26 @@
       </div>
     </div>
     <h3>TICKETS</h3>
-    <b-container class="bv-example-row jumbotron ">
-      <b-row v-for="n in array" >
-        <b-col :for="`number-${n}`"  cols="9"> 
-           <input
+    <div class="jumbotron">
+    <b-container v-for="n in array" >
+      <b-row  >
+        <b-col :for="`number-${n}`" class="number-box2" cols="12"> 
+          
+          <label v-for="ele in n" >
+            <input
             disabled
-            :checked="isChecked2(n)"
+            :checked="isChecked2(ele)"
             type="checkbox"
-            :id="`number-${n}`"
-          /> <label v-if="css == true" style="color:red" :for="`number-${n}`">{{ n }}</label>
-          <label v-if="css == false" style="color:black" :for="`number-${n}`">{{ n }}</label>
+            :id="`number-${ele}`"
+          /> 
+            <span v-if="ele !== ''" >{{ ele }}</span> 
+            </label>
         </b-col>
+        <!-- <label  v-for="check in checked2" style="color:red" >{{ check}}</label> -->
       </b-row>
-
     </b-container>
-  </div>
+    </div>
+  </b-container>
 </template>
 
 <script>
@@ -59,7 +64,9 @@ export default {
       _drawNumbers: [],
       checked2: [],
       currentNumber2: 0,
-      css: false
+      css: false,
+      HTMLcontent: null,
+      HTMLcontent1 : null
     };
   },
   computed: {
@@ -68,12 +75,19 @@ export default {
       // this.getTickets)
     },
   },
+   created() {
+  	this.HTMLcontent1 = `
+    	n
+  `;
+ 
+  },
   methods: {
     isChecked: function isChecked(n) {
       return this.checked.includes(n);
     },
     isChecked2: function isChecked2(n) {
       return this.checked2.includes(n);
+
     },
     isarray() {
       var count = 1;
@@ -154,7 +168,7 @@ export default {
       // JSON.parse(this.array);
 
         // console.log("thh", this.array, Math.floor(Math.random()))
-         this.array = array;
+        //  this.array = array;
         //  this.array.push(array);
       }
       for(var i = 0; i < 3; i++)
@@ -164,7 +178,7 @@ export default {
           
         var remove =  Math.floor(Math.random() * (arrtemp.length) );
         console.log("remove", this.array[i][remove]);
-        this.array[i][remove] = " ";
+        this.array[i][remove] = "";
         arrtemp.splice(remove, 1); //delete value
         console.log(this.array[i][remove]);
         }
@@ -195,10 +209,9 @@ export default {
           if(this.array[i][j] == number1) 
           {
           console.log("FOUND");
-            this.css = false;
-            this.checked.push(number1);
-          this.currentNumber = number1;
-         this.style();
+          this.checked2.push(number1);
+          this.currentNumber2 = number1;
+          console.log("checked", this.checked2);
           }
         
         }
@@ -304,6 +317,9 @@ input[type="checkbox"] {
 .number-box {
   display: flex;
 }
+.number-box2 {
+  display: flex;
+}
 .number-box label {
   display: flex;
   flex: 1;
@@ -313,6 +329,23 @@ input[type="checkbox"] {
   color: white;
   background: #f1c40f;
   border-radius: 50%;
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  transition: 1s;
+  transition-timing-function: cubic-bezier(0.86, -0.41, 0.38, 1.48);
+  position: relative;
+  height: 8vh;
+  width: 8vh;
+}
+.number-box2 label {
+  display: flex; 
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  font-size: 4vh;
+  color: white;
+  background: #f1c40f;
+  /* border-radius: 50%; */
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
   transition: 1s;
@@ -334,11 +367,27 @@ input[type="checkbox"] {
   background: rgba(200, 0, 0, 0.5);
   transition: 0.3s;
 }
+.number-box2 label::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: calc(50% - 0.5vh);
+  height: 1vh;
+  width: 0;
+  background: rgba(200, 0, 0, 0.5);
+  transition: 0.3s;
+}
 .number-box label::after {
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 .number-box input:checked + label {
+  background: #2ecc71;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  font-weight: bold;
+}
+.number-box2 input:checked + label {
   background: #2ecc71;
   -webkit-transform: scale(1);
   transform: scale(1);
