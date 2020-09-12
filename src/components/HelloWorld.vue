@@ -27,18 +27,19 @@
     <h3>TICKETS</h3>
     <div class="jumbotron">
     <b-container v-for="n in array" >
-      <b-row  >
-        <b-col :for="`number-${n}`" class="number-box2" cols="12"> 
-          
-          <label v-for="ele in n" >
-            <input
-            disabled
+      <b-row>
+        <b-col  class="number-box"> 
+          <div v-for="ele in n" >
+            <input 
+          disabled
             :checked="isChecked2(ele)"
             type="checkbox"
             :id="`number-${ele}`"
           /> 
-            <span v-if="ele !== ''" >{{ ele }}</span> 
-            </label>
+          <label :for="`number-${n}`"  > {{ele}} </label>
+          <!-- <p v-if="number2 != ele">
+            {{ ele }} </p> -->
+            </div>
         </b-col>
         <!-- <label  v-for="check in checked2" style="color:red" >{{ check}}</label> -->
       </b-row>
@@ -66,7 +67,8 @@ export default {
       currentNumber2: 0,
       css: false,
       HTMLcontent: null,
-      HTMLcontent1 : null
+      HTMLcontent1 : null,
+      number2: null,
     };
   },
   computed: {
@@ -190,11 +192,11 @@ export default {
       
     },
     pickNumber: function pickNumber() {
-      var number1 ;
+     
       while (1) {
         var number = Math.ceil(Math.random() * this.boardNumbers);
         console.log("NUMBER", number);
-        number1 = number;
+        this.number2 = number;
         //  var number2 = Math.ceil(Math.random() * this.array);
         if (!this.checked.includes(number)) {
           this.checked.push(number);
@@ -206,11 +208,11 @@ export default {
       for(var i = 0; i<3;i++){
         for(var j= 0; j< 9; j++)
         {
-          if(this.array[i][j] == number1) 
+          if(this.array[i][j] == this.number2) 
           {
           console.log("FOUND");
-          this.checked2.push(number1);
-          this.currentNumber2 = number1;
+          this.checked2.push(this.number2);
+          this.currentNumber2 = this.number2;
           console.log("checked", this.checked2);
           }
         
